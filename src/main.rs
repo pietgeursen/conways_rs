@@ -1,5 +1,6 @@
 extern crate rand;
 use std::mem::swap;
+use std::time::{Duration, Instant};
 
 const BOARD_SIZE : usize = 200;
 
@@ -92,9 +93,12 @@ fn main() {
 
     seed_board(& mut board_one); 
 
-    loop{
+    let now = Instant::now();
+    for _ in 0..100{
         print_board(&board_one);
         calculate_next_board(& board_one, & mut board_two);
         swap(& mut board_one, & mut board_two);
     }
+    let elapsed = now.elapsed();
+    println!("{}.{}", elapsed.as_secs(), elapsed.subsec_nanos() as f32 / 1.0E9);
 }
